@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+
 using Domain;
 
 namespace Persistence
@@ -8,20 +9,18 @@ namespace Persistence
     {
         // activity 5 [Missing Screenshot?]
         
-        // here is a tip on how to create the method.
-
         // because we want to use the connection to the sqlite's
-        // db that we created in API.Program.Main
+        // db that we created in API.Program.Main, we add the DataContext
+        // parameter to the method to access in static method. 
         public static void SeedData(DataContext context)
         {
             // since we have a connection to the database,
-            // we can query the database tables with linq;
-            // make sure you import System.Linq;
+            // we can query the database tables with linq.
             if(context.Posts.Count() == 0)
             {
-                // this will run once when a database's
-                // post table is emtpy.
-                // create a list of posts and instantiate. 
+                // this will run once when a database's post table is empty. 
+                
+                // create a list of new posts and instantiate.
                 // like the activity states, you only need
                 // to seed with the Title and Body string properties.
                 List<Post> seedPosts = new List<Post>
@@ -33,18 +32,20 @@ namespace Persistence
 
                 // these next methods are accessed from
                 // the base class DbContext in EntityFrameworkCore.
+                // we inherited this class to DataContext.cs
                 
                 // we could add new records into a table individually
                 // note we are accessing the Posts DbSet from DataContext class
-                // 
+
                 // context.Posts.Add(seedPosts[0]);
                 // context.Posts.Add(seedPosts[1]);
                 // context.Posts.Add(seedPosts[2]);
+
                 // or we can just add a list using the add range method
                 context.Posts.AddRange(seedPosts);
 
                 // now we need to save, or the inserts statements under the hood
-                // to add the objects in EntityFrameworkCore will not commit to the database. 
+                // to add the objects with EntityFrameworkCore will not commit to the database. 
                 context.SaveChanges();
             }
         }
