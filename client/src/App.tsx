@@ -30,9 +30,9 @@ class App extends React.Component {
     axios
       .delete(`http://localhost:5000/api/posts/${post.id}`)
       .then(response => {
-        const newPosts = this.state.posts.filter(p => p.id != post.id);
+        const newPosts = this.state.posts.filter(p => p.id !== post.id);
         this.setState({
-          POSTS: [...newPosts]
+          posts: [...newPosts]
         });
       })
       .catch(error => {
