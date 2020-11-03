@@ -105,7 +105,7 @@ namespace API.Controllers
             {
                 throw new Exception("Could not find post");
             }
-            this.context.Remove(id);
+            this.context.Remove(post);
             var success = this.context.SaveChanges() > 0;
             if(success)
             {
