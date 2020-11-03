@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Application.Posts;
 using Domain;
 using Persistence;
 using MediatR;
@@ -14,19 +12,12 @@ namespace API.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly IMediator mediator;
         private readonly DataContext context;
 
-        public PostsController(IMediator mediator, DataContext context)
+        public PostsController(DataContext context)
         {
-            this.mediator = mediator;
             this.context = context;
         }
-
-        // public async Task<ActionResult<List<Post>>> List()
-        // {
-        //     return await this.mediator.Send(new List.Query());
-        // }
 
         /// <summary>
         /// GET api/posts
@@ -74,9 +65,31 @@ namespace API.Controllers
             throw new Exception("Error creating post");
         }
 
+        /// <summary>
+        /// POST api/post
+        /// </summary>
+        /// <param name="request">JSON request containing post fields</param>
+        /// <returns>A new post</returns>
+        [HttpPut]
+        public ActionResult<Post> Update([FromBody]Post request)
+        {
+            var post = this.context.Posts.Find(request.Id);
+            if(post == null)
+            {
+                throw new Exception("Could not find post");
+            }
 
+            // update the post properties with request values, if preset.
+            post.Title = request.Title != null ? request.Title : post.Title;
+            post.Body = request.Body != null ? request.Body : post.Body;
+            post.Date = request.Date != null ? request.Date : post.Date;
 
-
-
+            var success = this.context.SaveChanges() > 0;
+            if(success)
+            {
+                return post;
+            }
+            throw new Exception("Error updating post");
+        }
     }
 }
