@@ -1,14 +1,14 @@
-.forms-containter {
+.form-container {
     display: flex;
     flex-direction: column;
     max-width: 500px;
     margin: 0 auto;
 }
 
-.forms-containter textarea {
+.form-container textarea {
     margin: 10px 0;
 }
 
-.forms-containter button {
+.form-container button {
     width: 100px;
 }

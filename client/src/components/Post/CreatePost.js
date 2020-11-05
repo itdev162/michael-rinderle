@@ -29,7 +29,7 @@ const CreatePost = ({onPostCreated}) => {
             console.log("Title and body are required");
         } else {
             const newPost = {
-                id: uuid.v4(),
+                id: uuid(),
                 title: title,
                 body: body,
                 date: moment().toISOString()
@@ -73,9 +73,7 @@ const CreatePost = ({onPostCreated}) => {
                 cols="30"
                 rows="10"
                 value={body}
-                onChange={e => create(e)}>
-                Submit
-            </textarea>
+                onChange={e => onChange(e)}></textarea>
             <button onClick={() => create()}>Submit</button>
         </div>
     );
