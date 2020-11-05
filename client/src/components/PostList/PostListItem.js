@@ -1,5 +1,6 @@
 import './styles.css';
 
+import EditPost from '../Post/EditPost';
 import React from 'react';
 import slugify from 'slugify';
 import { useHistory } from 'react-router-dom';
@@ -14,6 +15,11 @@ const PostListItem = props => {
         history.push(`/posts/${slug}`);
     }
 
+    const handleEditPost = post => {
+        EditPost(post);
+        history.push(`/edit-post/${post.id}`);
+    }
+
     return (
         <div>
             <div className="postListItem" onClick={() => handleClickPost(post)}>
@@ -22,6 +28,7 @@ const PostListItem = props => {
             </div>
             <div className="postControls">
                 <button onClick={() => deletePost(post)}>Delete</button>
+                <button onClick={() => handleEditPost(post)}>Edit</button>
             </div>
         </div>
     );
