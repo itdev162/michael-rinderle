@@ -1,0 +1,14 @@
+.forms-containter {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.forms-containter textarea {
+    margin: 10px 0;
+}
+
+.forms-containter button {
+    width: 100px;
+}
