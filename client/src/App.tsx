@@ -82,13 +82,14 @@ class App extends React.Component {
             <Link to="/">Home</Link>
             <Link to="/new-post">New Post</Link>
           </nav>
-          <main className="App-Content">
-            <switch>
+          <main className="App-content">
+            <Switch>
               <Route exact path="/">
                 <PostList
                   posts={posts}
                   clickPost={this.viewPost}
-                  deletePost={this.deletePost}/>
+                  deletePost={this.deletePost}
+                  editPost={this.editPost}/>
               </Route>
               <Route path="/posts/:postId">
                 <Post post={post}/>
@@ -97,9 +98,9 @@ class App extends React.Component {
                 <CreatePost onPostCreated={this.onPostCreated}/>
               </Route>
               <Route path="/edit-post/:postId">
-                <EditPost post={post} onPostCreated={this.onPostCreated}/>
+                <EditPost post={post} onPostUpdated={this.onPostUpdated}/>
               </Route>
-            </switch>
+            </Switch>
           </main>
         </div>
       </Router>     

@@ -5,7 +5,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import {useHistory} from 'react-router-dom';
-import {v1 as uuid} from "uuid";
+import { v4 as uuid } from 'uuid';
 
 const CreatePost = ({onPostCreated}) => {
     let history = useHistory();
@@ -29,7 +29,7 @@ const CreatePost = ({onPostCreated}) => {
             console.log("Title and body are required");
         } else {
             const newPost = {
-                id: uuid.v4(),
+                id: uuid(),
                 title: title,
                 body: body,
                 date: moment().toISOString()
@@ -54,7 +54,7 @@ const CreatePost = ({onPostCreated}) => {
                 onPostCreated(res.data);
                 history.push("/");
             } catch(error){
-                console.log(`Error creating posts: $(error.response.data)`);
+                console.log(`Error creating posts: ${error.response.data}`);
             }
         }
     }
@@ -73,9 +73,8 @@ const CreatePost = ({onPostCreated}) => {
                 cols="30"
                 rows="10"
                 value={body}
-                onChange={e => create(e)}>
-                Submit
-            </textarea>
+                onChange={e => onChange(e)}
+            ></textarea>
             <button onClick={() => create()}>Submit</button>
         </div>
     );

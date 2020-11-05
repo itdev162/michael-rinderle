@@ -5,9 +5,8 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import {useHistory} from 'react-router-dom';
-import {v1 as uuid} from "uuid";
 
-const EditPost = ({post, onPostCreated}) => {
+const EditPost = ({post, onPostUpdated}) => {
     let history = useHistory();
     const [postData, setPostData] = useState({
         title: post.title,
@@ -51,7 +50,7 @@ const EditPost = ({post, onPostCreated}) => {
                 );
 
                 // call the handler and redirect
-                onPostCreated(res.data);
+                onPostUpdated(res.data);
                 history.push("/");
             } catch(error){
                 console.log(`Error creating posts: $(error.response.data)`);
@@ -73,9 +72,7 @@ const EditPost = ({post, onPostCreated}) => {
                 cols="30"
                 rows="10"
                 value={body}
-                onChange={e => update(e)}>
-                Submit
-            </textarea>
+                onChange={e => onChange(e)}></textarea>
             <button onClick={() => update()}>Submit</button>
         </div>
     );
